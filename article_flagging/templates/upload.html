@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Upload Article{% endblock %}
+{% block content %}
+<h2>Upload New Article</h2>
+<form method="POST" enctype="multipart/form-data">
+  <input type="text" name="title" placeholder="Title" required>
+  <textarea name="summary" placeholder="Summary"></textarea>
+  <input type="file" name="file">
+  <button type="submit">Upload</button>
+</form>
+{% endblock %}

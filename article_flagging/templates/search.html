@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h2>Search Articles</h2>
+<form method="GET">
+  <input type="text" name="keyword" value="{{ keyword or '' }}" placeholder="Enter keywords..." required>
+  <button type="submit">Search</button>
+</form>
+
+{% if results %}
+  <h3>Results</h3>
+  <ul>
+    {% for result in results %}
+      <li>
+        <h4>{{ result[1] }}</h4>
+        <p>{{ result[2] }}</p>
+        <a href="{{ url_for('post_article', article_id=result[0]) }}">Flag this article as a post</a>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <div class="pagination">
+    {% if page > 1 %}
+      <a class="pagelink" href="{{ url_for('search', keyword=keyword, page=page-1) }}">← Prev</a>
+    {% endif %}
+    <a class="pagelink" href="{{ url_for('search', keyword=keyword, page=page+1) }}">Next →</a>
+  </div>
+{% elif keyword %}
+  <p>No results found for "<strong>{{ keyword }}</strong>".</p>
+{% endif %}
+{% endblock %}
